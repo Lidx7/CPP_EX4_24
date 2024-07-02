@@ -13,11 +13,9 @@ template <typename T> class pre_order_iterator {
 
 public:
     pre_order_iterator(Node<T>* root) {
-        cout << "pre_order_iterator constructor" << endl;
         if(root != nullptr) {
             _stack.push(root);
         }
-        cout << "pre_order_iterator constructor end" << endl;
     }
 
     T& operator*() {
@@ -26,7 +24,6 @@ public:
     }
 
     Node<T>* operator->() {
-        if (_stack.empty()) throw runtime_error("Dereferencing end iterator");
         return _stack.top();
     }
 
@@ -56,59 +53,63 @@ public:
 
 template <typename T> class post_order_iterator {
 private:
-    stack<pair<Node<T>*, size_t>> _stack;
+    stack<Node<T>*> _stack;
+    stack<Node<T>*> _prepareStack;
+    Node<T>* _last_visited;
 
 public:
-    post_order_iterator(Node<T>* root) {
-        if (root != nullptr) {
-            _stack.push({root, 0});
-            while (root->children.size() > 0) {
-                root = root->children[0];
-                _stack.push({root, 0});
-            }
+    post_order_iterator(Node<T>* root) : _last_visited(nullptr) {
+        if(root==  nullptr) {
+            return;
         }
+        if (root != nullptr) {
+            _stack.push(root);
+            while (!_stack.empty())
+            {
+                Node<T>* a=_stack.top();
+                _prepareStack.push(a);
+                _stack.pop();
+                for (auto child : a->children)
+                {
+                    _stack.push(child);
+                }
+            }
+            
+        }
+        
+        _last_visited=_prepareStack.top();
     }
 
     T& operator*() {
         if (_stack.empty()) throw runtime_error("Dereferencing end iterator");
-        return _stack.top().first->get_value();
+        return _stack.top()->get_value();
     }
 
     Node<T>* operator->() {
-        if (_stack.empty()) throw runtime_error("Dereferencing end iterator");
-        return _stack.top().first;
+        return _last_visited;
     }
 
     post_order_iterator& operator++() {
-        if (_stack.empty()) return *this;
-
-        while (!_stack.empty()) {
-            auto& [node, child_index] = _stack.top();
-
-            if (child_index < node->children.size()) {
-                Node<T>* next_child = node->children[child_index];
-                ++child_index;
-                
-                _stack.push({next_child, 0});
-                while (next_child->children.size() > 0) {
-                    next_child = next_child->children[0];
-                    _stack.push({next_child, 0});
-                }
-                break;
-            } else {
-                _stack.pop();
-                if (!_stack.empty()) {
-                    ++_stack.top().second;
-                }
+        if(_prepareStack.empty()) _last_visited = nullptr;
+        else
+        {
+            
+            _prepareStack.pop();
+            if(!_prepareStack.empty()) {
+            _last_visited = _prepareStack.top();}
+            else
+            {
+                _last_visited = nullptr;
             }
         }
+
+        
 
         return *this;
     }
 
     bool operator==(const post_order_iterator& other) const {
-        return (_stack.empty() && other._stack.empty()) || 
-               (!_stack.empty() && !other._stack.empty() && _stack.top().first == other._stack.top().first);
+        return other._last_visited == _last_visited;
     }
 
     bool operator!=(const post_order_iterator& other) const {
@@ -138,7 +139,6 @@ public:
     }
 
     Node<T>* operator->() {
-        if (_stack.empty()) throw runtime_error("Dereferencing end iterator");
         return _stack.top();
     }
 
@@ -190,7 +190,6 @@ public:
     }
 
     Node<T>* operator->() {
-        if (_queue.empty()) throw runtime_error("Dereferencing end iterator");
         return _queue.front();
     }
 
@@ -217,7 +216,6 @@ public:
     }
 };
 
-// DFS scan iterator (which is essentially the same as pre-order)
 template <typename T> class dfs_scan_iterator {
 private:
     stack<Node<T>*> _stack;
@@ -235,7 +233,6 @@ public:
     }
 
     Node<T>* operator->() {
-        if (_stack.empty()) throw runtime_error("Dereferencing end iterator");
         return _stack.top();
     }
 
@@ -262,7 +259,6 @@ public:
     }
 };
 
-// Heap iterator remains largely the same, but with some improvements
 template <typename T> class heap_iterator {
 private:
     vector<Node<T>*> _heap;
@@ -288,7 +284,6 @@ public:
     }
 
     Node<T>* operator->() {
-        if (_index >= _heap.size()) throw runtime_error("Dereferencing end iterator");
         return _heap[_index];
     }
 
