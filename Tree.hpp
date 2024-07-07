@@ -49,19 +49,6 @@ public:
         return end_bfs_scan();
     }
 
-    //TODO: consider removing these
-
-    // Tree* begin_pre_order(){return NULL;}
-
-    // Tree* end_pre_order(){return NULL;}
-
-    // Tree* begin_post_order(){return NULL;}
-
-    // Tree* end_post_order(){return NULL;}
-
-    // Tree* begin_in_order(){return NULL;}
-
-    // Tree* end_in_order(){return NULL;}
 
     bfs_scan_iterator<T> begin_bfs_scan(){
         return bfs_scan_iterator<T>(root);
@@ -114,22 +101,6 @@ public:
         return in_order_iterator<T>(nullptr);
     }
 
-    //TODO: consider removing these:
-    // Tree* begin_bfs_scan(){
-    //     return NULL;
-    // }
-
-    // Tree* end_bfs_scan(){
-    //     return NULL;
-    // }
-
-//     Tree* begin_dfs_scan(){
-//         return dfs_scan_iterator<T>(this->root);
-//     }
-
-//     Tree* end_dfs_scan(){
-//         return dfs_scan_iterator<T>(nullptr);
-//     }
 
 };
 
