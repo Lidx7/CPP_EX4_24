@@ -1,3 +1,6 @@
+#ifndef ITERATORS_HPP
+#define ITERATORS_HPP
+
 #pragma once
 #include <iostream>
 #include <stack>
@@ -41,7 +44,7 @@ public:
     }
 
     bool operator==(const pre_order_iterator& other) const {
-        return (_stack.empty() && other._stack.empty()) || 
+        return (_stack.empty() && other._stack.empty()) ||
                (!_stack.empty() && !other._stack.empty() && _stack.top() == other._stack.top());
     }
 
@@ -74,9 +77,9 @@ public:
                     _stack.push(child);
                 }
             }
-            
+
         }
-        
+
         _last_visited=_prepareStack.top();
     }
 
@@ -93,17 +96,17 @@ public:
         if(_prepareStack.empty()) _last_visited = nullptr;
         else
         {
-            
+
             _prepareStack.pop();
             if(!_prepareStack.empty()) {
-            _last_visited = _prepareStack.top();}
+                _last_visited = _prepareStack.top();}
             else
             {
                 _last_visited = nullptr;
             }
         }
 
-        
+
 
         return *this;
     }
@@ -164,7 +167,7 @@ public:
     }
 
     bool operator==(const in_order_iterator& other) const {
-        return (_stack.empty() && other._stack.empty()) || 
+        return (_stack.empty() && other._stack.empty()) ||
                (!_stack.empty() && !other._stack.empty() && _stack.top() == other._stack.top());
     }
 
@@ -207,7 +210,7 @@ public:
     }
 
     bool operator==(const bfs_scan_iterator& other) const {
-        return (_queue.empty() && other._queue.empty()) || 
+        return (_queue.empty() && other._queue.empty()) ||
                (!_queue.empty() && !other._queue.empty() && _queue.front() == other._queue.front());
     }
 
@@ -250,7 +253,7 @@ public:
     }
 
     bool operator==(const dfs_scan_iterator& other) const {
-        return (_stack.empty() && other._stack.empty()) || 
+        return (_stack.empty() && other._stack.empty()) ||
                (!_stack.empty() && !other._stack.empty() && _stack.top() == other._stack.top());
     }
 
@@ -303,3 +306,5 @@ public:
         return !(*this == other);
     }
 };
+
+#endif // ITERATORS_HPP

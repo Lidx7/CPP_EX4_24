@@ -1,3 +1,6 @@
+#ifndef TREE_HPP
+#define TREE_HPP
+
 #pragma once
 #include <iostream>
 #include "Node.hpp"
@@ -13,20 +16,22 @@ public:
     BaseTree(): root(nullptr){};
     BaseTree(Node<T>* root): root(root){};
 
-    //TODO: fix problem with the iterator!!!!!
+    ~BaseTree() {
+    if (root != nullptr) {
+        clearTree(root);
+        root = nullptr;
+    }
+}
 
-    // ~BaseTree(){
-    //     bfs_scan_iterator<T> it = begin_bfs_scan();
-    //     bfs_scan_iterator<T> prev = it;
-    //     bfs_scan_iterator<T> end = end_bfs_scan();
+    void clearTree(Node<T>* node) {
+        if (node == nullptr) return;
+        
+        for (Node<T>* child : node->get_children()) {
+            clearTree(child);
+        }
+        node->clear_children();
+    }
 
-    //     while(it != end){
-    //         prev = it;
-    //         ++it;
-    //         prev->clear_children();
-    //     }
-    //     root = nullptr;
-    // }
 
     void add_root(Node<T>& root){
         this->root = &root;
@@ -35,7 +40,7 @@ public:
     void add_sub_node(Node<T>* node, Node<T>* subNode){
         if(node->get_children().size() < K){
             node->add_child(subNode);
-        } 
+        }
         else{
             throw runtime_error("Node has reached its maximum number of children, cant add any more");
         }
@@ -107,7 +112,7 @@ public:
 
 /*Specialized template for binary tree option*/
 template <typename T> class Tree<T, 2> : public BaseTree<T, 2>{
-    public:
+public:
     pre_order_iterator<T> begin_pre_order(){
         return pre_order_iterator<T>(this->root);
     }
@@ -140,3 +145,5 @@ template <typename T> class Tree<T, 2> : public BaseTree<T, 2>{
         return heap_iterator<T>(nullptr);
     }
 };
+
+#endif // TREE_HPP

@@ -1,3 +1,6 @@
+#ifndef NODE_HPP
+#define NODE_HPP
+
 #pragma once
 #include <iostream>
 #include <vector>
@@ -12,10 +15,14 @@ public:
 public:
     Node(T data): data(data){};
 
+    ~Node(){
+        children.clear();
+    }
+
     const T& get_value() const{
         return data;
     }
-    
+
     vector<Node<T> *> get_children() const{
         return children;
     }
@@ -33,3 +40,5 @@ public:
     }
 
 };
+
+#endif // NODE_HPP

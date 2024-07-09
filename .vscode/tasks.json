@@ -1,0 +1,33 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "make",
+            "command": "make",
+            "args": [
+                        "-g",
+                        "-std=c++17",
+                        "${workspaceFolder}/*.cpp",
+                        "-o",
+                        "${workspaceFolder}/demo",
+                        "`qmake -query QT_INSTALL_LIBS`/libQt5Widgets.so",
+                        "`qmake -query QT_INSTALL_LIBS`/libQt5Gui.so",
+                        "`qmake -query QT_INSTALL_LIBS`/libQt5Core.so",
+                        "-I`qmake -query QT_INSTALL_HEADERS`",
+                        "-L`qmake -query QT_INSTALL_LIBS`",
+                        "-fPIC"
+                    ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
