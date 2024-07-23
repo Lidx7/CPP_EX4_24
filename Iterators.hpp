@@ -96,7 +96,6 @@ public:
         if(_prepareStack.empty()) _last_visited = nullptr;
         else
         {
-
             _prepareStack.pop();
             if(!_prepareStack.empty()) {
                 _last_visited = _prepareStack.top();}
@@ -105,8 +104,6 @@ public:
                 _last_visited = nullptr;
             }
         }
-
-
 
         return *this;
     }

@@ -23,7 +23,7 @@ TEST_CASE("Node operations") {
 TEST_CASE("Tree operations") {
     Tree<int> tree;
     Node<int> root(1);
-    tree.add_root(root);
+    tree.add_root(&root);
 
     Node<int> child1(2);
     Node<int> child2(3);
@@ -82,7 +82,7 @@ TEST_CASE("Tree operations") {
 TEST_CASE("3-ary tree operations") {
     Tree<int, 3> tree;
     Node<int> root(1);
-    tree.add_root(root);
+    tree.add_root(&root);
 
     Node<int> child1(2);
     Node<int> child2(3);
@@ -121,7 +121,7 @@ TEST_CASE("3-ary tree operations") {
 TEST_CASE("Complex tree operations") {
     Tree<Complex> tree;
     Node<Complex> root(Complex(1, 1));
-    tree.add_root(root);
+    tree.add_root(&root);
 
     Node<Complex> child1(Complex(2, 2));
     Node<Complex> child2(Complex(3, 3));

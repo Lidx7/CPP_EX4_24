@@ -17,11 +17,11 @@ public:
     BaseTree(Node<T>* root): root(root){};
 
     ~BaseTree() {
-    if (root != nullptr) {
-        clearTree(root);
-        root = nullptr;
+        if (root != nullptr) {
+            clearTree(root);
+            root = nullptr;
+        }
     }
-}
 
     void clearTree(Node<T>* node) {
         if (node == nullptr) return;
@@ -33,8 +33,8 @@ public:
     }
 
 
-    void add_root(Node<T>& root){
-        this->root = &root;
+    void add_root(Node<T>* root){
+        this->root = root;
     }
 
     void add_sub_node(Node<T>* node, Node<T>* subNode){

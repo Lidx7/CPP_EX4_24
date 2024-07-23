@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
 
     Node<double> root_node(1.1);
     Tree<double> tree; // Binary tree that contains doubles.
-    tree.add_root(root_node);
+    tree.add_root(&root_node);
     Node<double> n1(1.2);
     Node<double> n2(1.3);
     Node<double> n3(1.4);
@@ -80,7 +80,7 @@ int main(int argc, char *argv[])
     Node<double> n41(1.5);
     Node<double> n51(1.8);
 
-    three_ary_tree.add_root(root_node2);
+    three_ary_tree.add_root(&root_node2);
     three_ary_tree.add_sub_node(&root_node2, &n11);
     three_ary_tree.add_sub_node(&root_node2, &n21);
     three_ary_tree.add_sub_node(&root_node2, &n31);
@@ -96,7 +96,7 @@ int main(int argc, char *argv[])
     Node<Complex> n42 = Node<Complex>(Complex(1.5, 2.6));
     Node<Complex> n52 = Node<Complex>(Complex(1.8, 2.7));
 
-    complex_tree.add_root(root_node3);
+    complex_tree.add_root(&root_node3);
     complex_tree.add_sub_node(&root_node3, &n12);
     complex_tree.add_sub_node(&root_node3, &n22);
     complex_tree.add_sub_node(&root_node3, &n32);
@@ -112,7 +112,7 @@ int main(int argc, char *argv[])
     Node<string> n43 = Node<string>("n4");
     Node<string> n53 = Node<string>("n5");
 
-    string_tree.add_root(root_node4);
+    string_tree.add_root(&root_node4);
     string_tree.add_sub_node(&root_node4, &n13);
     string_tree.add_sub_node(&root_node4, &n23);
     string_tree.add_sub_node(&n13, &n33);
